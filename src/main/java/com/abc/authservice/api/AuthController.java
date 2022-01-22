@@ -37,14 +37,14 @@ public class AuthController {
 
 	private final UserService userService;
 
-	@GetMapping("/app/abc")
+	/*@GetMapping("/app/abc")
 	public RedirectView redirectWithUsingRedirectView(RedirectAttributes attributes) {
 
 		// TO DO business logic to store TMN Token to Redis and return key
 
 		return new RedirectView("https://release-portal.truemoney.com?key=radom_key");
 
-	}
+	}*/
 
 	@GetMapping("/refresh")
 	public void refreshToken(HttpServletRequest request, HttpServletResponse response)
