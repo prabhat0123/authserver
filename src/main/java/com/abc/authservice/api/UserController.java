@@ -9,9 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-import org.springframework.web.servlet.view.RedirectView;
 
 import com.abc.authservice.domain.Role;
 import com.abc.authservice.domain.User;
@@ -26,33 +24,35 @@ import lombok.RequiredArgsConstructor;
 
 public class UserController {
 
-	private final UserService authService;
+	private final UserService userService;
 
 	@GetMapping("/users")
 	public ResponseEntity<List<User>> getUsers() {
-		return ResponseEntity.ok().body(authService.getUsers());
+		return ResponseEntity.ok().body(userService.getUsers());
 	}
 
 	@PostMapping("/user/save")
 	public ResponseEntity<User> saveuser(@RequestBody User user) {
 
 		URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/user/save").toUriString());
-		return ResponseEntity.created(uri).body(authService.saveUser(user));
+		return ResponseEntity.created(uri).body(userService.saveUser(user));
 	}
 
 	@PostMapping("/role/save")
 	public ResponseEntity<Role> saveuser(@RequestBody Role role) {
 
 		URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/role/save").toUriString());
-		return ResponseEntity.ok().body(authService.saveRole(role));
+		return ResponseEntity.ok().body(userService.saveRole(role));
 	}
 
 	@PostMapping("/roleToUser")
 	public ResponseEntity<?> addRoleToUser(@RequestBody RoleToUserForm roleToUser) {
 
-		authService.addRoleToUser(roleToUser.getUserName(), roleToUser.getRoleName());
+		userService.addRoleToUser(roleToUser.getUserName(), roleToUser.getRoleName());
 		return ResponseEntity.ok().build();
 	}
+	
+
 
 }
 
